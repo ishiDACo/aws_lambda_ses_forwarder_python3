@@ -52,11 +52,11 @@ def lambda_handler(event, context):
 
     logger.info("keys: {}".format(msg.keys()))
     logger.info("from: {}".format(msg['From']))
-    #original_from = msg['From']
-    #del msg['From']
-    #msg['From'] = re.sub(r'\<.+?\>', '', original_from).strip() + ' <{}>'.format(VERIFIED_FROM_EMAIL)
+    original_from = msg['From']
+    del msg['From']
+    msg['From'] = re.sub(r'\<.+?\>', '', original_from).strip() + ' <{}>'.format(VERIFIED_FROM_EMAIL)
 
-    msg['Reply-To'] = VERIFIED_FROM_EMAIL
+    msg['Reply-To'] = original_from
     msg['Return-Path'] = VERIFIED_FROM_EMAIL
 
     logger.info("subject prefix: {}".format(SUBJECT_PREFIX))
